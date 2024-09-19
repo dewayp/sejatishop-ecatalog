@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Submenu</title>
+    <link rel="stylesheet" href="katalog.css">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        ul li a {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        ul li a:hover {
+            background-color: #0056b3;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="menu-title">Product Submenu</h1>
+        <ul id="submenu-list">
+            <!-- Submenu content will be dynamically inserted here -->
+        </ul>
+        <div class="back-link">
+            <a href="katalog.html">&larr; Back to Catalog</a>
+        </div>
+    </div>
+
+    <script>
+        // Function to get the URL parameter
+        function getParameterByName(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name);
+        }
+
+        // Submenu data
+        const submenuData = {
+            1: {
+                title: 'Alat Rumah Tangga',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog1.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog2.pdf' }
+                ]
+            },
+            2: {
+                title: 'Bantal',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog3.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog4.pdf' }
+                ]
+            },
+            3: {
+                title: 'Bedcover',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog5.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog6.pdf' }
+                ]
+            },
+            4: {
+                title: 'Handuk',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog7.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog8.pdf' }
+                ]
+            },
+            5: {
+                title: 'Karpet',
+                items: [
+                    { text: 'Oscar', link: 'pdf/catalog9.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog10.pdf' }
+                ]
+            },
+            6: {
+                title: 'Kelambu',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog11.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog12.pdf' }
+                ]
+            },
+            7: {
+                title: 'Keset',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog13.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog14.pdf' }
+                ]
+            },
+            8: {
+                title: 'Sarung',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog15.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog16.pdf' }
+                ]
+            },
+            9: {
+                title: 'Sajadah',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog17.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog18.pdf' }
+                ]
+            },
+            10: {
+                title: 'Selimut',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog19.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog20.pdf' }
+                ]
+            },
+            11: {
+                title: 'Sprei',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog21.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog22.pdf' }
+                ]
+            },
+            12: {
+                title: 'Lain-lain',
+                items: [
+                    { text: 'Size 1', link: 'pdf/catalog23.pdf' },
+                    { text: 'Size 2', link: 'pdf/catalog24.pdf' }
+                ]
+            }
+        };
+
+
+        // Add more data for other menus
+
+        // Get the menu parameter from the URL
+        const menuParam = getParameterByName('menu');
+        const menuData = submenuData[menuParam];
+
+        if (menuData) {
+            // Set the menu title
+            document.getElementById('menu-title').textContent = menuData.title;
+
+            // Populate the submenu list
+            const submenuList = document.getElementById('submenu-list');
+            menuData.items.forEach(item => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = item.link;
+                a.textContent = item.text;
+                a.target = '_blank';  // Open PDF in new tab
+                li.appendChild(a);
+                submenuList.appendChild(li);
+            });
+        } else {
+            // If the menu is not found, show an error message
+            document.getElementById('menu-title').textContent = 'Menu not found';
+        }
+    </script>
+</body>
+
+</html>
