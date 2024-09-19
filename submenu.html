@@ -74,6 +74,14 @@
         .back-link a:hover {
             text-decoration: underline;
         }
+
+        /* Styling untuk PDF viewer */
+        .pdf-viewer {
+            width: 100%;
+            height: 600px; /* Atur tinggi sesuai kebutuhan */
+            border: none; /* Menghilangkan border */
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -84,8 +92,11 @@
             <!-- Submenu content will be dynamically inserted here -->
         </ul>
         <div class="back-link">
-            <a href="index.html">&larr; Back to Catalog</a>
+            <a href="katalog.html">&larr; Back to Catalog</a>
         </div>
+
+        <!-- Iframe untuk menampilkan PDF -->
+        <iframe id="pdf-viewer" class="pdf-viewer" src=""></iframe>
     </div>
 
     <script>
@@ -183,9 +194,6 @@
             }
         };
 
-
-        // Add more data for other menus
-
         // Get the menu parameter from the URL
         const menuParam = getParameterByName('menu');
         const menuData = submenuData[menuParam];
@@ -199,9 +207,14 @@
             menuData.items.forEach(item => {
                 const li = document.createElement('li');
                 const a = document.createElement('a');
-                a.href = item.link;
+                a.href = "#"; // Prevent default action
                 a.textContent = item.text;
-                a.target = '_blank';  // Open PDF in new tab
+
+                // Set the PDF in iframe on click
+                a.onclick = function () {
+                    document.getElementById('pdf-viewer').src = item.link; // Set the source of the iframe
+                };
+
                 li.appendChild(a);
                 submenuList.appendChild(li);
             });
